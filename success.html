@@ -1,0 +1,173 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Submission Success</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f0f4f8;
+            color: #333;
+        }
+        .container {
+            max-width: 900px;
+            margin: 50px auto;
+            padding: 20px;
+            background-color: #ffffff;
+            border-radius: 8px;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+        }
+        h1 {
+            text-align: center;
+            color: #4a90e2;
+        }
+        label {
+            margin-top: 10px;
+            display: block;
+            font-weight: bold;
+        }
+        .result {
+            margin: 10px 0;
+            padding: 10px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+        }
+        .color-box {
+            height: 30px;
+            width: 100%;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            margin-top: 5px;
+        }
+        .back-link, .login-link {
+            display: inline-block;
+            margin-top: 20px;
+            padding: 10px 15px;
+            background-color: #4a90e2;
+            color: white;
+            text-decoration: none;
+            border-radius: 5px;
+        }
+        .back-link:hover, .login-link:hover {
+            background-color: #357ABD;
+        }
+        .uploaded-image {
+            max-width: 100%;
+            height: auto;
+            margin-top: 10px;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="container">
+        <h1>Submission Successful!</h1>
+        
+        <div class="result">
+            <label>Name:</label>
+            <p id="displayName"></p>
+        </div>
+        
+        <div class="result">
+            <label>Email:</label>
+            <p id="displayEmail"></p>
+        </div>
+
+        <div class="result">
+            <label>Uploaded File:</label>
+            <img id="uploadedImage" class="uploaded-image" src="" alt="Uploaded Image" style="display: none;">
+            <p id="fileMessage"></p>
+        </div>
+
+        <div class="result">
+            <label>Interests:</label>
+            <p id="displayInterests"></p>
+        </div>
+        
+        <div class="result">
+            <label>Favorite Color:</label>
+            <p id="displayColor"></p>
+            <div class="color-box" id="colorBox"></div>
+        </div>
+        
+        <div class="result">
+            <label>Country:</label>
+            <p id="displayCountry"></p>
+        </div>
+        
+        <div class="result">
+            <label>Hobbies:</label>
+            <p id="displayHobbies"></p>
+        </div>
+        
+        <div class="result">
+            <label>Date:</label>
+            <p id="displayDate"></p>
+        </div>
+        
+        <div class="result">
+            <label>Time:</label>
+            <p id="displayTime"></p>
+        </div>
+        
+        <div class="result">
+            <label>Range Value:</label>
+            <p id="displayRange"></p>
+        </div>
+        
+        <div class="result">
+            <label>Search:</label>
+            <p id="displaySearch"></p>
+        </div>
+        
+        <div class="result">
+            <label>Message:</label>
+            <p id="displayMessage"></p>
+        </div>
+
+        <a class="back-link" href="Login.html">Back to Form</a>
+        <a class="login-link" href="index.html">Go to Login</a>
+    </div>
+
+    <script>
+        // Check if user is logged in
+        if (!sessionStorage.getItem('loggedIn')) {
+            window.location.href = 'index.html'; // Redirect to login page if not logged in
+        }
+
+        const urlParams = new URLSearchParams(window.location.search);
+        
+        document.getElementById('displayName').textContent = urlParams.get('name') || 'N/A';
+        document.getElementById('displayEmail').textContent = urlParams.get('email') || 'N/A';
+
+        // Display uploaded file if present
+        const fileName = urlParams.get('file');
+        if (fileName) {
+            document.getElementById('fileMessage').textContent = `Uploaded File: ${fileName}`;
+            const img = document.getElementById('uploadedImage');
+            img.src = URL.createObjectURL(new File([], fileName)); // Update this line based on how the file is processed
+            img.style.display = 'block';
+        } else {
+            document.getElementById('fileMessage').textContent = 'No file uploaded.';
+        }
+
+        document.getElementById('displayInterests').textContent = urlParams.getAll('interests').join(', ') || 'N/A';
+        
+        const favoriteColor = urlParams.get('colorPicker') || 'N/A';
+        document.getElementById('displayColor').textContent = favoriteColor;
+        document.getElementById('colorBox').style.backgroundColor = favoriteColor;
+
+        document.getElementById('displayCountry').textContent = urlParams.get('country') || 'N/A';
+        document.getElementById('displayHobbies').textContent = urlParams.getAll('hobbies').join(', ') || 'N/A';
+        document.getElementById('displayDate').textContent = urlParams.get('date') || 'N/A';
+        document.getElementById('displayTime').textContent = urlParams.get('time') || 'N/A';
+        document.getElementById('displayRange').textContent = urlParams.get('range') || 'N/A';
+        document.getElementById('displaySearch').textContent = urlParams.get('search') || 'N/A';
+        document.getElementById('displayMessage').textContent = urlParams.get('message') || 'N/A';
+    </script>
+
+</body>
+</html>

@@ -1,0 +1,172 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Testing with Siddharth</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f0f4f8;
+            color: #333;
+        }
+        .container {
+            max-width: 900px;
+            margin: 50px auto;
+            padding: 20px;
+            background-color: #ffffff;
+            border-radius: 8px;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+        }
+        h1 {
+            text-align: center;
+            color: #4a90e2;
+        }
+        label {
+            margin-top: 10px;
+            display: block;
+            font-weight: bold;
+        }
+        input, textarea, select {
+            width: calc(100% - 22px);
+            padding: 10px;
+            margin: 10px 0;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            box-sizing: border-box;
+        }
+        button {
+            padding: 10px 15px;
+            background-color: #4a90e2;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            margin-right: 10px;
+        }
+        button:hover {
+            background-color: #357ABD;
+        }
+        #loading {
+            display: none;
+            text-align: center;
+            margin-top: 20px;
+            font-weight: bold;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="container">
+        <h1>Form Testing</h1>
+        <form id="testForm" action="success.html" method="get" enctype="multipart/form-data" onsubmit="showLoading()">
+            <label for="fullName">Name:</label>
+            <input type="text" id="fullName" name="fullName" placeholder="Enter your name" required>
+
+            <label for="userEmail">Email:</label>
+            <input type="email" id="userEmail" name="userEmail" placeholder="Enter your email">
+
+            <label for="uploadFile">Choose File:</label>
+            <input type="file" id="uploadFile" name="uploadFile">
+
+            <label>Select Your Gender:</label>
+            <div class="radio-group">
+                <input type="radio" id="genderMale" name="genderSelect" value="male">
+                <label for="genderMale">Male</label>
+                <input type="radio" id="genderFemale" name="genderSelect" value="female">
+                <label for="genderFemale">Female</label>
+            </div>
+
+            <label>Choose Your Interests:</label>
+            <div class="checkbox-group">
+                <input type="checkbox" id="interestSports" name="interestsSelect" value="sports">
+                <label for="interestSports">Sports</label>
+                <input type="checkbox" id="interestMusic" name="interestsSelect" value="music">
+                <label for="interestMusic">Music</label>
+                <input type="checkbox" id="interestTravel" name="interestsSelect" value="travel">
+                <label for="interestTravel">Travel</label>
+            </div>
+
+            <label for="colorPicker">Choose Your Favorite Color:</label>
+            <input type="color" id="colorPicker" name="colorPicker" value="#ff0000">
+
+            <label for="countrySelect">Select Your Country:</label>
+            <select id="countrySelect" name="countrySelect">
+                <option value="">--Please choose a country--</option>
+                <option value="IN">India</option>
+                <option value="US">United States</option>
+                <option value="GB">United Kingdom</option>
+                <option value="CA">Canada</option>
+                <option value="AU">Australia</option>
+                <option value="DE">Germany</option>
+                <option value="FR">France</option>
+                <option value="JP">Japan</option>
+                <option value="BR">Brazil</option>
+                <option value="ZA">South Africa</option>
+            </select>
+
+            <label for="hobbiesSelect">Select Your Hobbies:</label>
+            <select id="hobbiesSelect" name="hobbiesSelect" multiple>
+                <option value="reading">Reading</option>
+                <option value="gaming">Gaming</option>
+                <option value="cooking">Cooking</option>
+                <option value="painting">Painting</option>
+                <option value="hiking">Hiking</option>
+            </select>
+
+            <label for="datePicker">Select Date:</label>
+            <input type="date" id="datePicker" name="datePicker">
+
+            <label for="timePicker">Select Time:</label>
+            <input type="time" id="timePicker" name="timePicker">
+
+            <label for="rangeInput">Select a Value (0-100):</label>
+            <input type="range" id="rangeInput" name="rangeInput" min="0" max="100" value="50">
+            <label for="rangeInput">Value: <span id="rangeValue">50</span></label>
+
+            <label for="searchField">Search:</label>
+            <input type="text" id="searchField" name="searchField" placeholder="Search...">
+
+            <label for="messageArea">Message:</label>
+            <textarea id="messageArea" name="messageArea" rows="4" placeholder="Enter your message here..."></textarea>
+
+            <button type="submit">Submit</button>
+            <button type="button" onclick="clearForm()">Cancel</button>
+        </form>
+        
+        <div id="loading">Loading... Please wait.</div>
+    </div>
+
+    <script>
+        // Check if user is logged in
+        if (!sessionStorage.getItem('loggedIn')) {
+            window.location.href = 'index.html'; // Redirect to login page if not logged in
+        }
+
+        const rangeInput = document.getElementById('rangeInput');
+        const rangeValue = document.getElementById('rangeValue');
+
+        rangeInput.addEventListener('input', function() {
+            rangeValue.textContent = this.value;
+        });
+
+        function clearForm() {
+            const inputs = document.querySelectorAll('input[type="text"], input[type="email"], input[type="file"], input[type="date"], input[type="time"], input[type="range"], input[type="color"], input[type="search"], textarea, select');
+            inputs.forEach(input => {
+                if (input.type === 'checkbox' || input.type === 'radio') {
+                    input.checked = false; // Clear checkboxes and radio buttons
+                } else {
+                    input.value = ''; // Clear text inputs
+                }
+            });
+        }
+
+        function showLoading() {
+            document.getElementById('loading').style.display = 'block'; // Show loading message
+        }
+    </script>
+
+</body>
+</html>
